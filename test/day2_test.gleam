@@ -1,6 +1,5 @@
 import advent_of_code/day2
 import gleam/list
-import gleam/result
 import gleeunit/should
 import simplifile
 
