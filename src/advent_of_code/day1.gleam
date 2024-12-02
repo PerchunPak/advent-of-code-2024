@@ -30,9 +30,9 @@ pub fn from_table(table: String) -> Result(#(List(Int), List(Int)), Nil) {
     |> result.all(),
   )
 
-  list.try_fold(split2, #([], []), fn(res, acc) {
-    let #(a, b) = res
-    use #(a1, b1) <- result.try(to_ints(acc))
+  list.try_fold(split2, #([], []), fn(acc, i) {
+    let #(a, b) = acc
+    use #(a1, b1) <- result.try(to_ints(i))
     let new_a = list.append(a, [a1])
     let new_b = list.append(b, [b1])
     Ok(#(new_a, new_b))
