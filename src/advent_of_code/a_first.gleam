@@ -38,3 +38,7 @@ pub fn from_table(table: String) -> Result(#(List(Int), List(Int)), Nil) {
     Ok(#(new_a, new_b))
   })
 }
+
+pub fn part_2(inp_a: List(Int), inp_b: List(Int)) -> List(Int) {
+  list.map(inp_a, fn(a) { a * list.count(inp_b, fn(x) { x == a }) })
+}
