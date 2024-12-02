@@ -38,12 +38,13 @@ pub fn solve_example_test() {
 
   day2.solve(table)
   |> should.equal([
-    Ok(True),
-    Ok(False),
-    Ok(False),
-    Ok(False),
-    Ok(False),
-    Ok(True),
+    //
+    True,
+    False,
+    False,
+    False,
+    False,
+    True,
   ])
 }
 
@@ -57,8 +58,6 @@ pub fn solve_fr_test() {
     |> should.be_ok()
 
   day2.solve(table)
-  |> result.all()
-  |> should.be_ok()
   |> list.count(fn(x) { x })
   |> should.equal(606)
 }
@@ -98,5 +97,5 @@ pub fn solve_part2_fr_test() {
 
   day2.solve_part_2(table)
   |> list.count(fn(x) { x })
-  |> should.equal(606)
+  |> should.equal(644)
 }
