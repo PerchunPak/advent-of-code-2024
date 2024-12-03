@@ -1,4 +1,4 @@
-/test/inputs
+/test/**/inputs/*.txt
 *.beam
 *.ez
 /build

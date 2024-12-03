@@ -1,4 +1,4 @@
-import advent_of_code/day2
+import advent_of_code/year2024/day2
 import gleam/list
 import gleeunit/should
 import simplifile
@@ -49,7 +49,7 @@ pub fn solve_example_test() {
 
 pub fn solve_fr_test() {
   let content =
-    simplifile.read("test/inputs/day2.txt")
+    simplifile.read("test/year2024/inputs/day2.txt")
     |> should.be_ok()
 
   let table =
@@ -87,7 +87,7 @@ pub fn solve_part2_example_test() {
 
 pub fn solve_part2_fr_test() {
   let content =
-    simplifile.read("test/inputs/day2.txt")
+    simplifile.read("test/year2024/inputs/day2.txt")
     |> should.be_ok()
 
   let table =
