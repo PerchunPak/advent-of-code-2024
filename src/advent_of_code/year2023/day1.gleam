@@ -1,6 +1,5 @@
 import gleam/dict
 import gleam/int
-import gleam/io
 import gleam/list
 import gleam/result
 import gleam/string
@@ -89,19 +88,21 @@ pub fn solve_part2(str: String) -> List(Int) {
 
       let new_ints = case int.parse(character) {
         Ok(i) -> list.append(ints, [i])
-        Error(_) ->
-          list.try_map(str_to_int, fn(k, v) {
-            case string.ends_with(nstr, k) {
-              True -> Error(list.append(ints, v))
-              False -> Ok(Nil)
-            }
-          })
+        Error(_) -> []
+        // list.try_map(str_to_int, fn(k, v) {
+        //   case string.ends_with(nstr, k) {
+        //     True -> Error(list.append(ints, v))
+        //     False -> Ok(Nil)
+        //   }
+        // })
       }
       #(new_ints, new_str)
     }
-    |> list.map(fn(lst) {
-      let x = list.first(lst)
-      let y = list.last(lst)
+    |> list.map(fn(res) {
+      let #(lst, _) = res
+      let ints = list.map(lst, int.to_string)
+      let x = list.first(ints)
+      let y = list.last(ints)
 
       case result.is_ok(result.all([x, y])) {
         True -> result.unwrap(x, "") <> result.unwrap(y, "")
