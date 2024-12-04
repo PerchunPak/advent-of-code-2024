@@ -1,6 +1,7 @@
 import gleam/int
 import gleam/list
 import gleam/option
+import gleam/pair
 import gleam/regexp
 
 pub fn part1_find_correct_instructions(inp: String) -> List(#(Int, Int)) {
@@ -61,8 +62,5 @@ pub fn part2_solve(inp: List(MatchResult)) -> List(Int) {
       Mul(_) -> panic
     }
   })
-  |> fn(x) {
-    let #(_, y) = x
-    y
-  }
+  |> pair.second()
 }
