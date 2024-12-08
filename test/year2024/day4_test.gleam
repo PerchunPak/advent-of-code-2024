@@ -76,12 +76,13 @@ pub fn pt2_example_test() -> Nil {
   |> day_4.pt_2()
   |> should.equal(9)
 }
-//pub fn pt2_fr_test() -> Nil {
-//  let content =
-//    simplifile.read("test/year2024/inputs/day4.txt")
-//    |> should.be_ok()
-//
-//  day_4.parse(content)
-//  |> day_4.pt_2()
-//  |> should.equal(0)
-//}
+
+pub fn pt2_fr_test() -> Nil {
+  let content =
+    simplifile.read("test/year2024/inputs/day4.txt")
+    |> should.be_ok()
+
+  day_4.parse(content)
+  |> day_4.pt_2()
+  |> should.equal(1936)
+}

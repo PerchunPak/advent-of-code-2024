@@ -1,5 +1,6 @@
 import gleam/bool
 import gleam/dict.{type Dict}
+import gleam/int
 import gleam/io
 import gleam/list
 import gleam/result
@@ -84,6 +85,21 @@ fn remove_duplicate_points(
   }
 }
 
+fn reverse_3_items_tuple(tuple: #(a, b, c)) -> #(c, b, a) {
+  let #(a, b, c) = tuple
+  #(c, b, a)
+}
+
+fn remove_duplicate_points_pt2(
+  inp: set.Set(#(Point, Point, Point)),
+) -> set.Set(#(Point, Point, Point)) {
+  use acc, points <- set.fold(inp, set.new())
+  case set.contains(acc, reverse_3_items_tuple(points)) {
+    False -> set.insert(acc, points)
+    True -> acc
+  }
+}
+
 fn gen_coords(
   point: Point,
   op: fn(Point, Int) -> Point,
@@ -130,6 +146,56 @@ pub fn pt_1(grid: Grid(String)) -> Int {
   |> list.length()
 }
 
+fn scan_point_pt2(
+  grid: Grid(String),
+  point: Point,
+) -> set.Set(#(Point, Point, Point)) {
+  let coords = [
+    gen_coords(point, fn(_, i) { Point(point.x + i, point.y - i) }, 3),
+    gen_coords(point, fn(_, i) { Point(point.x - i, point.y - i) }, 3),
+    gen_coords(point, fn(_, i) { Point(point.x + i, point.y + i) }, 3),
+    gen_coords(point, fn(_, i) { Point(point.x - i, point.y + i) }, 3),
+  ]
+
+  use acc, res <- list.fold(
+    list.map(coords, fn(p) { check_for_xmas(grid, p, "MAS") }),
+    set.new(),
+  )
+
+  case res {
+    Ok(points) -> {
+      let assert [p1, p2, p3] = points
+      set.insert(acc, #(p1, p2, p3))
+    }
+    Error(_) -> acc
+  }
+}
+
+fn find_x(
+  points: set.Set(#(Point, Point, Point)),
+) -> set.Set(#(Point, Point, Point)) {
+  use acc, point <- set.fold(points, set.new())
+
+  let filtered = set.filter(points, fn(x) { x.1 == point.1 })
+  case list.length(set.to_list(filtered)) {
+    2 -> set.insert(acc, point)
+    _ -> acc
+  }
+}
+
 pub fn pt_2(grid: Grid(String)) -> Int {
-  0
+  dict.fold(grid, set.new(), fn(acc, point, _char) {
+    scan_point_pt2(grid, point)
+    |> set.union(acc)
+  })
+  |> remove_duplicate_points_pt2()
+  |> find_x()
+  |> set.map(io.debug)
+  |> set.to_list()
+  |> list.length()
+  |> int.divide(2)
+  |> fn(x) {
+    let assert Ok(y) = x
+    y
+  }
 }
