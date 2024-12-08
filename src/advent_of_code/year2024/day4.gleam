@@ -1,7 +1,6 @@
 import gleam/bool
 import gleam/dict.{type Dict}
 import gleam/int
-import gleam/io
 import gleam/list
 import gleam/result
 import gleam/set
@@ -190,7 +189,6 @@ pub fn pt_2(grid: Grid(String)) -> Int {
   })
   |> remove_duplicate_points_pt2()
   |> find_x()
-  |> set.map(io.debug)
   |> set.to_list()
   |> list.length()
   |> int.divide(2)
